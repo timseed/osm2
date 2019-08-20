@@ -1,0 +1,12 @@
+2019-08-16 12:35:22.294 HKT [79414] LOG:  listening on IPv6 address "::1", port 5432
+2019-08-16 12:35:22.294 HKT [79414] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2019-08-16 12:35:22.295 HKT [79414] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2019-08-16 12:35:22.312 HKT [79415] LOG:  database system was shut down at 2019-08-16 12:35:07 HKT
+2019-08-16 12:35:22.316 HKT [79414] LOG:  database system is ready to accept connections
+2019-08-16 12:36:31.314 HKT [79457] ERROR:  could not open extension control file "/usr/local/share/postgresql/extension/postgis.control": No such file or directory
+2019-08-16 12:36:31.314 HKT [79457] STATEMENT:  CREATE EXTENSION postgis;
+2019-08-16 12:38:27.419 HKT [79414] LOG:  received fast shutdown request
+2019-08-16 12:38:27.419 HKT [79414] LOG:  aborting any active transactions
+2019-08-16 12:38:27.421 HKT [79414] LOG:  background worker "logical replication launcher" (PID 79421) exited with exit code 1
+2019-08-16 12:38:27.421 HKT [79416] LOG:  shutting down
+2019-08-16 12:38:27.432 HKT [79414] LOG:  database system is shut down
