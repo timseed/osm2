@@ -13,7 +13,7 @@ select  pt.osm_id,
        pt.name as name,ST_X(ST_TRANSFORM(pt.way,4674)) AS LONG,
        ST_Y(ST_TRANSFORM(pt.way,4674)) AS LAT from planet_osm_point pt ,
        planet_osm_polygon poly
-where defined(pt.tags,'capital') and pt.tags -> 'capital' = '4' and
+where defined(pt.tags,'capital') and
       poly.name='Luzon' and
       ST_Contains(poly.way, pt.way)
         order by lat,long;

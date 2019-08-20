@@ -1,14 +1,14 @@
 version: "3.5"
 services:
-  hk:
-    build: ./hk
-    container_name: 'hk-tile-server'
-    volumes:
-      - openstreetmap-data:/var/lib/postgresql/10/main
-      - openstreetmap-rendered-tiles:/var/lib/mod_tile 
-    ports:
-      - 5000:80
-      - 8001:5432
+#  hk:
+#    build: ./hk
+#    container_name: 'hk-tile-server'
+#    volumes:
+#      - openstreetmap-data:/var/lib/postgresql/10/main
+#      - openstreetmap-rendered-tiles:/var/lib/mod_tile 
+#    ports:
+#      - 5000:80
+#      - 8001:5432
   ph:
     build: ./ph
     container_name: 'ph-tile-server'
@@ -20,8 +20,8 @@ services:
       - 54320:5432
 
 volumes:
-  openstreetmap-data:
-  openstreetmap-rendered-tiles:
+#  openstreetmap-data:
+#  openstreetmap-rendered-tiles:
   openstreetmap-data-ph:
   openstreetmap-rendered-tiles-ph:
 
