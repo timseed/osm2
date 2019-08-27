@@ -1,0 +1,5 @@
+CREATE TABLE tour(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(75),
+    geom GEOMETRY(POINT)
+);
