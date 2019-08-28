@@ -5,7 +5,7 @@ from pprint import pprint
 import mlrose
 import numpy as np
 import daiquiri
-
+import simplekml
 logging.basicConfig(level=logging.DEBUG)
 logger = daiquiri.getLogger(__name__)
 logger.debug("Test")
@@ -55,6 +55,20 @@ problem_no_fit = mlrose.TSPOpt(length = len(coords_list), coords = coords_list,
 best_state, best_fitness = mlrose.genetic_alg(problem_fit, random_state = 2)
 
 print('The best state found is: ', best_state)
+kml =simplekml.Kml()
+kml_route = simplekml.Kml()
+route=[]
+cnt=0
 for n in best_state:
      print(f"{luzon_province_capitals[n][1]} {luzon_province_capitals[n][2]}")
+     kml.newpoint(name=str(cnt)+" "+luzon_province_capitals[n][1]+" "+luzon_province_capitals[n][2], coords=[(luzon_province_capitals[n][3],luzon_province_capitals[n][4])])
+     route.append((luzon_province_capitals[n][3],luzon_province_capitals[n][4]))
+     cnt +=1 
+kml.save("route.kml")
+
+lin = kml_route.newlinestring(name="Luzon1", description="Shortest Path around Luzon",
+                        coords=route)
+lin.style.linestyle.color = 'ff0000ff'  # Red
+lin.style.linestyle.width= 10  # 10 pixels
+kml_route.save("way.kml")
 print('The fitness at the best state is: ', best_fitness)
