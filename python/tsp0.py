@@ -38,7 +38,7 @@ def Hours_to_km(decimal_hours):
     return decimal_hours * 60.0 * 1.56
 
 
-luzon_province_capitals = get_data()
+luzon_province_capitals = get_data()[:10]
 # Reindex the ID's
 for n in luzon_province_capitals:
     n.id = idx()
@@ -60,15 +60,15 @@ for n in dist_pairs:
 pprint(dist_list)
 
 # Initialize fitness function object using coords_list
-fitness_coords = mlrose.TravellingSales(distances=dist_list, coords=coords_list)
+fitness_coords = mlrose.TravellingSales(coords=coords_list)
 # Initialize fitness function object using dist_list
-# fitness_dists = mlrose.TravellingSales(distances=dist_list)
+#fitness_dists = mlrose.TravellingSales(distances=dist_list)
 problem_fit = mlrose.TSPOpt(length=len(coords_list), fitness_fn=fitness_coords,
                             maximize=False)
 problem_no_fit = mlrose.TSPOpt(length=len(coords_list), coords=coords_list,
                                maximize=False)
 # Solve problem using the genetic algorithm
-best_state, best_fitness = mlrose.genetic_alg(problem_fit, random_state=2)
+best_state, best_fitness = mlrose.genetic_alg(problem_fit,pop_size=1000, random_state=2, max_attempts=1000,max_iters=100)
 
 print('The best state found is: ', best_state)
 kml = simplekml.Kml()
