@@ -1,6 +1,16 @@
+from dataclasses import dataclass
 from math import sqrt
-from psycopgr import PgrNode
+
 import psycopg2
+from psycopgr import PgrNode
+
+@dataclass
+class Province:
+    id: int
+    state: str
+    name: str
+    lon: float
+    lat: float
 
 
 def distance(lng1: float, lat1: float, lng2: float, lat2: float) -> float:
@@ -34,7 +44,7 @@ def get_data() -> list:
     cur.execute(luzon_capital)
     for row in cur:
         # print(row)
-        rv.append(row)
+        rv.append(Province(*row))
 
     conn.commit()
     cur.close()
@@ -84,4 +94,3 @@ def toPgrNode(row: tuple) -> PgrNode:
     :return: (Name,Long,Lat)
     """
     return PgrNode(row[1] + ' ' + row[2], lon=row[3], lat=row[4])
-
