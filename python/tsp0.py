@@ -1,6 +1,6 @@
 import logging
 from itertools import combinations
-from math import hypot
+from math import sqrt
 from pprint import pprint
 
 import daiquiri
@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = daiquiri.getLogger(__name__)
 logger.debug("Test")
 
-from utils import get_data
+from utils import get_data, Province
 
 cnt = -1
 
@@ -21,17 +21,25 @@ def idx():
     cnt += 1
     return cnt
 
+
+def dist(pos1: Province, pos2: Province) -> float:
+    yDis = abs(int(Hours_to_km(pos1.lat)) - int(Hours_to_km(pos2.lat)))
+    xDis = abs(int(Hours_to_km(pos2.lon)) - int(Hours_to_km(pos2.lon)))
+    distance = sqrt((xDis * xDis) + (yDis * yDis))
+    return distance
+
+
 def Hours_to_km(decimal_hours):
     """
     14.234 is 14*60 + .234 * 60 Miles
     :param decimal_hours:
     :return:
     """
-    return decimal_hours*60.0*1.56
+    return decimal_hours * 60.0 * 1.56
 
 
 luzon_province_capitals = get_data()
-#Reindex the ID's
+# Reindex the ID's
 for n in luzon_province_capitals:
     n.id = idx()
 
@@ -43,24 +51,18 @@ pprint(dist_pairs)
 #
 #
 #
-coords_list = [(n.lon,n.lat) for n in luzon_province_capitals]
+coords_list = [(n.lon, n.lat) for n in luzon_province_capitals]
 dist_list = []
 for n in dist_pairs:
-    frm = n[0]
-    too = n[1]
-    dist_in_km =             hypot(Hours_to_km(luzon_province_capitals[frm].lat) -
-                                   (luzon_province_capitals[too].lat),
-                                   (luzon_province_capitals[frm].lon) -
-                                   (luzon_province_capitals[too].lon))
-    dist_list.append((frm, too, dist_in_km))
+    frm = luzon_province_capitals[n[0]]
+    too = luzon_province_capitals[n[1]]
+    dist_list.append((frm, too, dist(frm,too)))
 pprint(dist_list)
 
-
-
 # Initialize fitness function object using coords_list
-fitness_coords = mlrose.TravellingSales(coords=coords_list)
+fitness_coords = mlrose.TravellingSales(distances=dist_list, coords=coords_list)
 # Initialize fitness function object using dist_list
-fitness_dists = mlrose.TravellingSales(distances=dist_list)
+# fitness_dists = mlrose.TravellingSales(distances=dist_list)
 problem_fit = mlrose.TSPOpt(length=len(coords_list), fitness_fn=fitness_coords,
                             maximize=False)
 problem_no_fit = mlrose.TSPOpt(length=len(coords_list), coords=coords_list,
